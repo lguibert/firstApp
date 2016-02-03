@@ -1,6 +1,7 @@
 package com.example.lucas.myapplication;
 
 import android.annotation.TargetApi;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CompoundButton;
+import android.widget.RadioButton;
 import android.widget.Switch;
 import android.widget.TextClock;
 
@@ -24,28 +26,42 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+    }
 
+    public void onRadioButtonClicked(View view) {
+        boolean checked = ((RadioButton) view).isChecked();
         Switch sw = (Switch) findViewById(R.id.switch1);
+
+        if (sw.isChecked()) {
+            switch (view.getId()) {
+                case R.id.radioButton:
+                    if (checked) {
+                        changeColorClock(getResources().getColor(R.color.colorAccent));
+                    }
+                    break;
+                case R.id.radioButton2:
+                    if (checked) {
+                        changeColorClock(getResources().getColor(R.color.colorCool));
+                    }
+                    break;
+                case R.id.radioButton3:
+                    if (checked) {
+                        changeColorClock(getResources().getColor(R.color.colorPlusCoolCool));
+                    }
+                    break;
+                case R.id.radioButton4:
+                    if (checked) {
+                        changeColorClock(getResources().getColor(R.color.colorPlusCool));
+                    }
+                    break;
+            }
+        }
+    }
+
+    private void changeColorClock(int color) {
         final TextClock txcl = (TextClock) findViewById(R.id.textClock);
 
-        sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    txcl.setTextColor(getResources().getColor(R.color.colorAccent));
-                }else{
-                    txcl.setTextColor(getResources().getColor(R.color.colorPrimary));
-                }
-            }
-        });
+        txcl.setTextColor(color);
     }
 
     @Override
